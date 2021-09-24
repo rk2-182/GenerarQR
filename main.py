@@ -11,29 +11,47 @@ import os
 import pathlib
 from PIL import Image
 
-texto = input("Introduzca el texto para generar codigo QR: ")
+class Qr():
 
-#Convertir en qr el texto
-imagen = qrcode.make(texto)
+    def __init__(self):
+
+        self.ruta = str(pathlib.Path().absolute())+'\\qr\\'
+        self.NombreImg = 'hola'
+
+    def GenerarQr(self):
+
+        texto = input("Introduzca el texto para generar codigo QR: ")
+
+        #Convertir en qr el texto
+        imagen = qrcode.make(texto)
+
+        NombreImg = input("Introduzca el nombre de la imagen QR: ") + '.png'
+        self.NombreImg = NombreImg
+
+        self.ruta=self.ruta+self.NombreImg
+        #Abrimos un archivo en modo escritura que es donde se guardará nuestro código.
+        f = open(self.ruta,'wb')
+
+        imagen.save(f)
+        f.close()
+
+        return f
+
+    def comprobarArchivo(self):
+        if os.path.exists(self.ruta):
+            print("Existe: ",self.ruta)
+        else:
+            print("No existe")
+
+   
+
+"""
+    #Abrir imagen
+    ruta_imagen = ruta
+    Image.open(ruta_imagen).show()"""
 
 
-NombreImg = input("Introduzca el nombre de la imagen QR: ") + '.png'
+qr = Qr()
 
-ruta=str(pathlib.Path().absolute())+'\\qr\\'+NombreImg
-#Abrimos un archivo en modo escritura que es donde se guardará nuestro código.
-f = open(ruta,'wb')
-
-
-if os.path.exists(ruta):
-    print("Existe: ",ruta)
-else:
-    print("No existe")
-
-imagen.save(f)
-f.close()
-
-
-#Abrir imagen
-ruta_imagen = ruta
-Image.open(ruta_imagen).show()
-
+qr.GenerarQr()
+qr.comprobarArchivo()
