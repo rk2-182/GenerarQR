@@ -18,6 +18,13 @@ class Qr():
         self.ruta = str(pathlib.Path().absolute())+'\\qr\\'
         self.NombreImg = ' '
 
+    
+    def bienvenida(self):
+        os.system("cls")
+        mensaje = "***** BIENVENIDO A GENERADOR DE QR 1.0 *****"
+        print(mensaje.center(50))
+        print("\n")
+
     def GenerarQr(self):
 
         texto = input("Introduzca el texto para generar codigo QR: ")
@@ -53,14 +60,3 @@ class Qr():
         Image.open(ruta_imagen).show()
 
 
-qr = Qr()
-
-qr.GenerarQr()
-qr.comprobarArchivo()
-
-respuesta = input("¿ Desea ver la imagen QR generada? (S/n)")
-
-if respuesta == 'S' or respuesta == 's':
-    qr.abrirImg()
-else:
-    print("Revisar directorio con imagen")
