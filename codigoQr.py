@@ -16,7 +16,7 @@ class Qr():
     def __init__(self):
 
         self.ruta = str(pathlib.Path().absolute())+'\\qr\\'
-        self.NombreImg = 'hola'
+        self.NombreImg = ' '
 
     def GenerarQr(self):
 
@@ -25,10 +25,13 @@ class Qr():
         #Convertir en qr el texto
         imagen = qrcode.make(texto)
 
+        #Ingresar un nombre a la imagen generada con extensin png
         NombreImg = input("Introduzca el nombre de la imagen QR: ") + '.png'
         self.NombreImg = NombreImg
 
+        #Asignar ruta mas el nombre de la imagen
         self.ruta=self.ruta+self.NombreImg
+
         #Abrimos un archivo en modo escritura que es donde se guardará nuestro código.
         f = open(self.ruta,'wb')
 
@@ -44,14 +47,20 @@ class Qr():
             print("No existe")
 
    
-
-"""
-    #Abrir imagen
-    ruta_imagen = ruta
-    Image.open(ruta_imagen).show()"""
+    def abrirImg(self):
+        #Abrir imagen
+        ruta_imagen = self.ruta
+        Image.open(ruta_imagen).show()
 
 
 qr = Qr()
 
 qr.GenerarQr()
 qr.comprobarArchivo()
+
+respuesta = input("¿ Desea ver la imagen QR generada? (S/n)")
+
+if respuesta == 'S' or respuesta == 's':
+    qr.abrirImg()
+else:
+    print("Revisar directorio con imagen")
